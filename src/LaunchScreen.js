@@ -9,22 +9,6 @@ import { Image, View } from 'react-native';
 import splash from './splash.png';
 
 export default class LaunchScreen extends Component {
-  constructor(props) {
-    super(props);
-  }
-  static navigationOptions = {
-    header: null,
-  };
-  componentDidMount() {
-    if (global.firstLaunch === 'true') {
-      this.props.navigation.navigate('Home');
-    } else {
-      this.timeoutHandle = setTimeout(() => {
-        this.props.navigation.navigate('Home');
-      }, 3000);
-      global.firstLaunch = 'true';
-    }
-  }
   render() {
     return (
       <View style={{ flex: 1 }}>
