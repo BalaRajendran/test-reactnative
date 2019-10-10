@@ -198,10 +198,6 @@ android {
 }
 
 dependencies {
-    implementation (project(':react-native-admob')){
-        exclude group: "com.google.android.gms"
-    }
-    implementation ('com.google.android.gms:play-services-ads:16.+') { force = true; }
     implementation project(':react-native-svg')
     implementation project(':react-native-share')
     implementation project(':@react-native-community_netinfo')
