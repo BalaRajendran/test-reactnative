@@ -41,6 +41,8 @@ export default class Profile extends Component {
       maxChatListDate: [],
       minChatListCount: [],
       minChatListDate: [],
+      emoji: [],
+      emojiCount: []
     };
   }
   async componentDidMount() {
@@ -65,6 +67,13 @@ export default class Profile extends Component {
     var _this = this
     axios.post(links.split("@@")[3], data)
       .then(function (response) {
+        var emoji = []
+        var emojiCount = []
+        response.data.emoji.split('), ').forEach(element => {
+          emoji.push(element.split('(')[1].replace("'", "").replace("'", "").split(",")[0])
+          emojiCount.push(element.split('(')[1].replace("'", "").replace("'", "").split(",")[1])
+        });
+        emojiCount[emojiCount.length - 1] = emojiCount[emojiCount.length - 1].split(")]")[0]
         var unsortedchatcount = response.data.unsortedchatcount.replace("]", "").replace("[", "").replace(" ", "").replace(" ", "").split(",")
         for (var i = 0; i < unsortedchatcount.length; i++) unsortedchatcount[i] = parseInt(unsortedchatcount[i]);
 
@@ -83,6 +92,8 @@ export default class Profile extends Component {
           totalword: response.data.totalword,
           maxChatListCount: sortedchatcount,
           maxChatListDate: sortedchatdate,
+          emoji,
+          emojiCount,
           minChatListCount: unsortedchatcount,
           minChatListDate: unsortedchatdate,
           maxchat: response.data.sortedchatdate.slice(12, 22),
@@ -220,37 +231,39 @@ export default class Profile extends Component {
                 💘 Starting Date 😍{this.state.enddate}😍
             </Text>
             </View>
-            <View>
-              <LineChart
-                data={{
-                  labels: this.state.maxChatListDate,
-                  datasets: [
-                    {
-                      data: this.state.maxChatListCount,
+            {this.state.maxChatListDate.length > 0 && (
+              <View>
+                <LineChart
+                  data={{
+                    labels: this.state.maxChatListDate,
+                    datasets: [
+                      {
+                        data: this.state.maxChatListCount,
+                      },
+                    ],
+                  }}
+                  width={Dimensions.get('window').width}
+                  height={220}
+                  yAxisLabel={''}
+                  chartConfig={{
+                    backgroundColor: '#e26a00',
+                    backgroundGradientFrom: '#fb8c00',
+                    backgroundGradientTo: '#ffa726',
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    style: {
+                      borderRadius: 16,
                     },
-                  ],
-                }}
-                width={Dimensions.get('window').width}
-                height={220}
-                yAxisLabel={''}
-                chartConfig={{
-                  backgroundColor: '#e26a00',
-                  backgroundGradientFrom: '#fb8c00',
-                  backgroundGradientTo: '#ffa726',
-                  color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                  style: {
+                  }}
+                  bezier
+                  style={{
+                    marginVertical: 8,
                     borderRadius: 16,
-                  },
-                }}
-                bezier
-                style={{
-                  marginVertical: 8,
-                  borderRadius: 16,
-                }}
-              />
-              <Text style={styles.totalChatNumber1}>Highest chats with date</Text>
-            </View>
-            {this.state.minChatListDate == 2 && (
+                  }}
+                />
+                <Text style={styles.totalChatNumber1}>Highest chats with date</Text>
+              </View>
+            )}
+            {this.state.minChatListDate.length > 0 && (
               <View>
                 <BarChart
                   style={{
@@ -281,7 +294,40 @@ export default class Profile extends Component {
                 <Text style={styles.totalChatNumber1}>Lowest chats with date</Text>
               </View>
             )}
-            {this.state.mediaCount.length == 2 && (
+            {this.state.emojiCount.length > 0 && (
+              <View style={{ flex: 1 }}>
+                <LineChart
+                  style={{
+                    marginVertical: 8,
+                    borderRadius: 16,
+                  }}
+                  data={{
+                    labels: this.state.emoji,
+                    datasets: [
+                      {
+                        data: this.state.emojiCount,
+                      },
+                    ],
+                  }}
+                  width={Dimensions.get('window').width}
+                  height={220}
+                  yAxisLabel={''}
+                  chartConfig={{
+                    backgroundColor: '#e26a00',
+                    backgroundGradientFrom: '#fb8c00',
+                    backgroundGradientTo: '#ffa726',
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    style: {
+                      borderRadius: 16,
+                    },
+                  }}
+                />
+                <Text style={styles.totalChatNumber1}>
+                  Emoji Analysis
+            </Text>
+              </View>
+            )}
+            {this.state.mediaCount.length >= 2 && (
               <View style={{ flex: 1 }}>
                 <LineChart
                   style={{
@@ -317,7 +363,7 @@ export default class Profile extends Component {
                 />
                 <Text style={styles.totalChatNumber1}>
                   Media Send by yours
-            </Text>
+                </Text>
               </View>
             )}
             <View style={{ flex: 1 }}>
