@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Share from 'react-native-share';
+import RNFetchBlob from 'rn-fetch-blob';
 import {
   Modal,
   StatusBar,
@@ -186,8 +187,8 @@ export default class Profile extends Component {
       );
     } else {
       return (
-        <ScrollView>
-          <View style={styles.container}>
+        <View style={styles.container}>
+          <ScrollView>
             {console.log(this.state)}
             <Header onhandlePopup={this.handlePopup} {...this.props} />
             <View style={styles.topContainer}>
@@ -415,43 +416,43 @@ export default class Profile extends Component {
                 Overall Chart Sentimental Analysis
             </Text>
             </View>
-            <Button style={{ marginBottom: 5 }} block success>
-              <Text>Save to Gallery</Text>
-            </Button>
-            <Button block info onPress={() =>
-              this.handleShare
-            }>
-              <Text>Share to your friends</Text>
-            </Button>
-          </View>
+            <ImageView
+              images={images}
+              imageIndex={0}
+              onClose={() => this.setState({ isImageViewVisible: false })}
+              isVisible={this.state.isImageViewVisible}
+              renderFooter={currentImage => (
+                <View
+                  style={{
+                    fontWeight: 'bold',
+                    fontSize: 18,
+                    color: 'white',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <Text style={{ color: 'white' }}>{this.state.analysiswith}</Text>
+                </View>
+              )}
+            />
+          </ScrollView>
+          <Button style={{ marginBottom: 5, }} block success>
+            <Text>Save to Gallery</Text>
+          </Button>
+          <Button block info onPress={this.handleShare}>
+            <Text>Share to your friends</Text>
+          </Button>
+        </View>
 
-          <ImageView
-            images={images}
-            imageIndex={0}
-            onClose={() => this.setState({ isImageViewVisible: false })}
-            isVisible={this.state.isImageViewVisible}
-            renderFooter={currentImage => (
-              <View
-                style={{
-                  fontWeight: 'bold',
-                  fontSize: 18,
-                  color: 'white',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <Text style={{ color: 'white' }}>{this.state.analysiswith}</Text>
-              </View>
-            )}
-          />
-        </ScrollView >
       );
     }
   }
 }
 const styles = StyleSheet.create({
   container: {
+    justifyContent: 'space-between',
     backgroundColor: '#455a64',
     flex: 1,
+    flexDirection: 'column'
   },
   chatContainer: {
     marginTop: 200,
