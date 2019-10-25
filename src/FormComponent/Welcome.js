@@ -1,21 +1,10 @@
 import React, { Component } from 'react';
 import Wallpaper from './Wallpaper';
 import Dimensions from 'Dimensions';
-import Header from './../Components/Header';
-import IconNG from 'react-native-vector-icons/FontAwesome';
 import uuid from 'uuid/v4';
 import styles from './style';
 import {
-  AdMobBanner,
-  AdMobInterstitial,
-  PublisherBanner,
-  AdMobRewarded
-} from 'react-native-admob'
-import {
-  StyleSheet,
-  KeyboardAvoidingView,
   View,
-  ActivityIndicator,
   TouchableOpacity,
   Text,
   Animated,
@@ -128,12 +117,12 @@ export default class LoginScreen extends Component {
     return (
       <Wallpaper>
         <View behavior="padding" style={styles.welcomecontainer}>
-          <AdMobBanner
+          {/* <AdMobBanner
             adSize="fullBanner"
             adUnitID="ca-app-pub-2768988214935130/8410873681"
             // testDevices={[AdMobBanner.simulatorId]}
             onAdFailedToLoad={error => console.log(error)}
-          />
+          /> */}
 
           <Text style={styles.texthead}>WhatsApp Analysis</Text>
           <View style={styles.inputWrapper}>

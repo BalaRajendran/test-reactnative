@@ -67,7 +67,7 @@ export default class LoginScreen extends Component {
     } else if (this.state.text == '') {
       if (this.state.documentLoading) {
         ToastAndroid.showWithGravity(
-          'Document Still Uploading',
+          'Document Still Loading',
           ToastAndroid.SHORT,
           ToastAndroid.BOTTOM,
         );

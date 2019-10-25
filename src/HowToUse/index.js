@@ -19,13 +19,13 @@ export default class App extends React.Component {
             backgroundColor: '#fe6e58',
             image: <Image source={require("./images/2.png")} />,
             title: 'Step-2',
-            subtitle: 'Here just click “More” and choose “Export Chat” option',
+            subtitle: 'Here just click “More” and click “Export Chat” ',
           },
           {
             backgroundColor: '#999',
             image: <Image source={require("./images/3.png")} />,
             title: 'Step-3',
-            subtitle: "It will give you further 2 option “Without Media” or “Include Media”, choose any of them and go ahead",
+            subtitle: "It will give you further 2 option “Without Media” or “Include Media”, choose “Without Media” and go ahead",
           },
           {
             backgroundColor: '#fff',

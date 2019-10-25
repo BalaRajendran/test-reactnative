@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import IconNG from 'react-native-vector-icons/FontAwesome';
+import {
+  AdMobBanner,
+  AdMobInterstitial,
+  PublisherBanner,
+  AdMobRewarded
+} from 'react-native-admob'
 import Image from 'react-native-image-progress';
 import RNFetchBlob from 'rn-fetch-blob';
 import uuid from 'uuid/v1';
@@ -316,6 +322,11 @@ export default class HomeScreen extends Component {
                   <Card key={i}>
                     <List>
                       <ListItem avatar noBorder>
+                        <AdMobBanner
+                          bannerSize="fullBanner"
+                          adSize="banner"
+                          adUnitID="ca-app-pub-2768988214935130/8410873681"
+                          didFailToReceiveAdWithError={() => { console.log(this.bannerError) }} />
                         <Left>
                           <TouchableOpacity
                             onPress={this.handlePicture.bind(
